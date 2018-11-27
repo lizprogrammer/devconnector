@@ -9,10 +9,6 @@ const passport = require('passport');
 // Load Input Validation
 const validateRegisterInput = require('../../validation/register');
 
-// Check Validation
-if(!isValid) {
-  return res.status(400).json(errors);
-}
 
 // Load User model
 const User = require('../../models/User');

@@ -1,7 +1,7 @@
 const Validator = require('validator');
 const isEmpty = require('./is-empty');
 
-module.exports = function validateRegisterInput() {
+module.exports = function validateRegisterInput(data) {
   let errors = {};
 
   if(!Validator.isLength(data.name, { min: 2, max: 30 })){
