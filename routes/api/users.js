@@ -64,8 +64,6 @@ router.post('/register', (req, res) => {
 router.post("/login", (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
-  
-  console.log(req.body.email);
 
   // Find user by email
   User.findOne({ email }).then(user => {
@@ -76,7 +74,6 @@ router.post("/login", (req, res) => {
 
     // Check password
     bcrypt.compare(password, user.password).then(isMatch => {
-      console.log(isMatch);
       if (isMatch) {
         // User Matched
         const payload = { id: user.id, name: user.name, avatar: user.avatar }; // Create JWT Payload
