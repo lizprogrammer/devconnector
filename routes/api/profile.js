@@ -18,6 +18,8 @@ router.get('/test', (req, res) => res.json({
   msg: "Profile Works"
 }));
 
+
+
 // @route   GET api/profile/
 // @desc    Get current user's profile
 // @access  Private
@@ -36,6 +38,13 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     })
     .catch(err => res.status(404).json(err));
 });
+
+// @route   GET api/profile/handle/:handle
+// @desc    Get profile by handle
+// @access  Public
+
+router.get('/');
+
 
 // @route   POST api/profile/
 // @desc    Create or edit current user profile
