@@ -6,6 +6,7 @@ const passport = require('passport');
 // Load Validation
 const validateProfileInput = require('../../validation/profile');
 const validateExperienceInput = require('../../validation/experience');
+const validateEducationInput = require('../../validation/education');
 
 // Load Profile Model
 const Profile = require('../../models/Profile');
@@ -31,8 +32,6 @@ router.get('/', passport.authenticate('jwt', { session: false }), (req, res) => 
     .then(profile => {
       if (!profile) {
         errors.noprofile = 'There is no profile for this user';
-        console.log(req.user.id);
-        console.log(req.user.name);
         return res.status(404).json(errors);
       }
       res.json(profile);
@@ -167,11 +166,9 @@ router.post(
 
   // Check Validationty  ````` 
   if (!isValid) {
-    console.log("so difficult!");
     // Return any errors with 400 status
     return res.status(400).json(errors);
   }
-  console.log("good to know");
 
   Profile.findOne({ user: req.user.id })
   .then(profile => {
@@ -186,10 +183,43 @@ router.post(
       };
       // Add to exp array
       profile.experience.unshift(newExp);
-      console.log("still going?");
       profile.save().then(profile => res.json(profile));
     });
   }
 );
+
+// @route   POST api/profile/education
+// @desc    Add education to profile
+// @access  Public
+router.post(
+  '/education', 
+  passport.authenticate('jwt', { session: false }), 
+  (req, res) => {
+    const { errors, isValid } = validateEducationInput(req.body);
+
+  // Check Validationty  ````` 
+  if (!isValid) {
+    // Return any errors with 400 status
+    return res.status(400).json(errors);
+  }
+
+  Profile.findOne({ user: req.user.id })
+  .then(profile => {
+      const newEdu = {
+        school: req.body.school,
+        degree: req.body.degree,
+        fieldofstudy: req.body.fieldofstudy,
+        from: req.body.from,
+        to: req.body.to,
+        current: req.body.current,
+        description: req.body.description
+      };
+      // Add to exp array
+      profile.education.unshift(newEdu);
+      profile.save().then(profile => res.json(profile));
+    });
+  }
+);
+
 
 module.exports = router; 

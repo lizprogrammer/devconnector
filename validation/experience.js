@@ -20,8 +20,6 @@ if(Validator.isEmpty(data.from)){
   errors.from = 'From date field is required';
 }
 
-console.log("whelp! now what?");
-
   return {
     errors,
     isValid: isEmpty(errors)
