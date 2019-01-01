@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import classnames from 'classnames';
+import { connect } from 'react-redux';
+import { registeruser } from '../../actions/authActions';
 
 class Register extends Component {
   constructor() {
@@ -30,7 +32,8 @@ onSubmit(e) {
     password2: this.state.password2
   };
   
-  axios.post('/api/users/register', newUser)
+  axios
+    .post('/api/users/register', newUser)
     .then(res => console.log(res.data))
     .catch(err => this.setState({ errors: err.response.data }));
 }
@@ -45,7 +48,7 @@ onSubmit(e) {
         <div className="col-md-8 m-auto">
           <h1 className="display-4 text-center">Sign Up</h1>
           <p className="lead text-center">Create your DevConnector account</p>
-          <form onSubmit={ this.onSubmit }>
+          <form noValidate onSubmit={ this.onSubmit }>
             <div className="form-group">
               <input type="text" className={ classnames('form-control form-control-lg', {
                 'is-invalid': errors.name
@@ -58,7 +61,7 @@ onSubmit(e) {
             </div>
             <div className="form-group">
               <input type="email" className={ classnames('form-control form-control-lg', {
-                'is-invalid': errors.name
+                'is-invalid': errors.email
               })} 
               placeholder="Email Address" name="email" 
               value={ this.state.email }
@@ -70,7 +73,7 @@ onSubmit(e) {
             <div className="form-group">
               <input type="password" 
               className={ classnames('form-control form-control-lg', {
-                'is-invalid': errors.name
+                'is-invalid': errors.password
               })} 
               placeholder="Password" name="password" 
               value={ this.state.password }
@@ -78,10 +81,11 @@ onSubmit(e) {
               />
               { errors.password && (<div className = "invalid-feedback">{ errors.password }</div>) }
             </div>
+            
             <div className="form-group">
               <input type="password" 
               className={ classnames('form-control form-control-lg', {
-                'is-invalid': errors.name
+                'is-invalid': errors.password2
               })}  
               placeholder="Confirm Password" name="password2" 
               value={ this.state.password2 }
@@ -99,4 +103,4 @@ onSubmit(e) {
   }
 }
 
-export default Register;
+export default connect(null, { registeruser })(Register);
