@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+// eslint-disable-next-line 
 import axios from 'axios';
 import classnames from 'classnames';
 import { connect } from 'react-redux';
-import { registeruser } from '../../actions/authActions';
+import { registerUser } from '../../actions/authActions';
 
 class Register extends Component {
   constructor() {
@@ -31,11 +32,13 @@ onSubmit(e) {
     password: this.state.password,
     password2: this.state.password2
   };
+
+  this.props.registerUser(newUser);
   
-  axios
-    .post('/api/users/register', newUser)
-    .then(res => console.log(res.data))
-    .catch(err => this.setState({ errors: err.response.data }));
+  // axios
+  //   .post('/api/users/register', newUser)
+  //   .then(res => console.log(res.data))
+  //   .catch(err => this.setState({ errors: err.response.data }));
 }
   render() {
 
@@ -103,4 +106,4 @@ onSubmit(e) {
   }
 }
 
-export default connect(null, { registeruser })(Register);
+export default connect(null, { registerUser })(Register);
