@@ -25,7 +25,7 @@ router.post('/register', (req, res) => {
   const { errors, isValid } = validateRegisterInput(req.body);
 
   // Check Validation
-  if(!isValid) {
+  if (!isValid) {
     return res.status(400).json(errors);
   }
 
@@ -38,12 +38,14 @@ router.post('/register', (req, res) => {
         r: "pg", // Rating
         d: "mm" // Default
       });
-      const newUser = new User({
-        name: req.body.name,
-        email: req.body.email,
-        avatar,
-        password: req.body.password
-      });
+
+        const newUser = new User({
+          name: req.body.name,
+          email: req.body.email,
+          avatar,
+          password: req.body.password
+        });
+
       bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
           if (err) throw err;
@@ -65,7 +67,7 @@ router.post('/login', (req, res) => {
   const { errors, isValid } = validateLoginInput(req.body);
 
   // Check Validation
-  if(!isValid) {
+  if (!isValid) {
     return res.status(400).json(errors);
   }
 
@@ -88,15 +90,15 @@ router.post('/login', (req, res) => {
 
         // Sign Token
         jwt.sign(
-          payload, 
-          keys.secretOrKey, 
-          { expiresIn: 3600 }, 
+          payload,
+          keys.secretOrKey,
+          { expiresIn: 3600 },
           (err, token) => {
             res.json({
               success: true,
               token: 'Bearer ' + token
             });
-        });
+          });
       } else {
         errors.password = 'Password incorrect';
         return res.status(400).json(errors);
@@ -109,14 +111,14 @@ router.post('/login', (req, res) => {
 // @desc    Return current user
 // @access  Private
 router.get(
-  '/current', 
-  passport.authenticate('jwt', { session: false }), 
+  '/current',
+  passport.authenticate('jwt', { session: false }),
   (req, res) => {
-  res.json({
-    id: req.user.id,
-    name: req.user.name,
-    email: req.user.email
+    res.json({
+      id: req.user.id,
+      name: req.user.name,
+      email: req.user.email
+    });
   });
-});
 
 module.exports = router;
