@@ -14,19 +14,36 @@
   "author": "Elizabeth Rosso",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
     "concurrently": "^4.1.0",
     "express": "^4.16.4",
     "gravatar": "^1.7.0",
-    "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.3.12",
+    "jsonwebtoken": "^8.5.0",
+    "jwt-decode": "^2.2.0",
+    "mongoose": "^5.4.15",
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "react": "^16.8.1",
-    "validator": "^10.9.0"
+    "react-dom": "^16.8.3",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^2.1.5",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "validator": "^10.11.0"
   },
   "devDependencies": {
     "nodemon": "^1.18.6"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lizprogrammer/devconnector.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lizprogrammer/devconnector/issues"
+  },
+  "homepage": "https://github.com/lizprogrammer/devconnector#readme"
 }
